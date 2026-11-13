@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Publishes a small health report at https://api.123-ov.nl/status/status.json
 S=/var/lib/ov/status; mkdir -p $S
-health=$(curl -s -m 5 -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/api/v1/health || echo 000)
+health=$(curl -s -m 5 -o /dev/null -w '%{http_code}' http://127.0.0.1:8090/api/v1/health || echo 000)
 jq -n \
   --arg time "$(date -Is)" \
   --arg commit "$(git -C /opt/123-ov-server rev-parse --short HEAD 2>/dev/null)" \

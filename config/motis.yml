@@ -1,7 +1,7 @@
 # MOTIS configuration for 123 OV (Netherlands, all public transport)
 server:
   host: 127.0.0.1
-  port: 8080
+  port: 8090
   web_folder: /opt/motis/ui
   data_attribution_link: https://123-ov.nl/#data
 osm: /var/lib/ov/input/netherlands-latest.osm.pbf

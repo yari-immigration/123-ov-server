@@ -25,7 +25,8 @@ if (cd $B/work && runuser -u motis -- /opt/motis/motis import -c config.yml -d $
   rm -rf $B/data-old; [ -d $B/data ] && mv $B/data $B/data-old; mv $B/data-new $B/data
   systemctl start motis; sleep 5
   if systemctl is-active -q motis; then rm -rf $B/data-old; rm -f $B/need-import; log "MOTIS running on new data"
-  else log "MOTIS failed on new data, rolling back"; systemctl stop motis; rm -rf $B/data; mv $B/data-old $B/data; systemctl start motis; fi
+  elif [ -d $B/data-old ]; then log "MOTIS failed on new data, rolling back"; systemctl stop motis; rm -rf $B/data; mv $B/data-old $B/data; systemctl start motis
+  else log "MOTIS not active yet on first data (kept, see journal)"; fi
 else
   log "import FAILED (see import.log)"; rm -rf $B/data-new
 fi

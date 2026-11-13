@@ -1,31 +1,22 @@
+# Nextcloud AIO owns ports 80/443/8080/8443 on this server.
+# Caddy serves the API over plain HTTP on 8091; Netlify (https://123-ov.nl/api/*) proxies to it.
 {
-	email info@123-nl.com
+	auto_https off
+	admin localhost:2019
 }
 
-api.123-ov.nl {
+:8091 {
 	encode zstd gzip
-
-	@cors header_regexp Origin ^https://((www\.)?(123-ov|123-reis)\.nl|([a-z0-9-]+--)?123-ov\.netlify\.app)$
-	header @cors {
-		Access-Control-Allow-Origin "{http.request.header.Origin}"
-		Access-Control-Allow-Methods "GET, OPTIONS"
-		Access-Control-Allow-Headers "Content-Type"
-		Access-Control-Max-Age "86400"
-		Vary "Origin"
-	}
-	@preflight method OPTIONS
-	respond @preflight 204
 
 	handle_path /status/* {
 		root * /var/lib/ov/status
 		header Cache-Control "no-store"
-		header Access-Control-Allow-Origin "*"
 		file_server
 	}
 
 	@api path /api/v1/geocode /api/v1/reverse-geocode /api/v6/plan /api/v6/stoptimes /api/v6/trip /api/v1/health
 	handle @api {
-		reverse_proxy 127.0.0.1:8080
+		reverse_proxy 127.0.0.1:8090
 	}
 
 	handle {
