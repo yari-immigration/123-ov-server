@@ -34,6 +34,9 @@ if changed $R/config/Caddyfile /etc/caddy/Caddyfile; then
   else log "caddy config INVALID: $(caddy validate --config /etc/caddy/Caddyfile 2>&1 | tail -3)"; fi
 fi
 
+# keep Caddy running (self-heal)
+if [ -f /etc/caddy/Caddyfile ] && ! systemctl is-active -q caddy && ! systemctl is-active -q ov-diag; then systemctl restart caddy 2>/dev/null && log "caddy restarted"; fi
+
 # systemd units
 u=0
 for f in $R/systemd/*; do
