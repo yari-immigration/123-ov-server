@@ -5,7 +5,7 @@
 api.123-ov.nl {
 	encode zstd gzip
 
-	@cors header_regexp Origin ^https://(www\.)?(123-ov|123-reis)\.nl$|^https://[a-z0-9-]+--123-ov\.netlify\.app$
+	@cors header_regexp Origin ^https://((www\.)?(123-ov|123-reis)\.nl|([a-z0-9-]+--)?123-ov\.netlify\.app)$
 	header @cors {
 		Access-Control-Allow-Origin "{http.request.header.Origin}"
 		Access-Control-Allow-Methods "GET, OPTIONS"
