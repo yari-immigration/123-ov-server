@@ -1,0 +1,7 @@
+[Unit]
+Description=123 OV: refresh timetable and map data
+
+[Service]
+Type=oneshot
+ExecStart=/opt/123-ov-server/scripts/update-data.sh
+Nice=10

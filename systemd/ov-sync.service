@@ -1,0 +1,6 @@
+[Unit]
+Description=123 OV: pull server config from GitHub and apply
+
+[Service]
+Type=oneshot
+ExecStart=/opt/123-ov-server/scripts/sync.sh

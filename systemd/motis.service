@@ -1,0 +1,16 @@
+[Unit]
+Description=MOTIS journey planner (123 OV)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=motis
+Group=motis
+WorkingDirectory=/var/lib/ov
+ExecStart=/opt/motis/motis server -d /var/lib/ov/data
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

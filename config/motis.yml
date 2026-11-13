@@ -1,0 +1,29 @@
+# MOTIS configuration for 123 OV (Netherlands, all public transport)
+server:
+  host: 127.0.0.1
+  port: 8080
+  web_folder: /opt/motis/ui
+  data_attribution_link: https://123-ov.nl/#data
+osm: /var/lib/ov/input/netherlands-latest.osm.pbf
+timetable:
+  first_day: TODAY
+  num_days: 30
+  railviz: false
+  with_shapes: false
+  update_interval: 60
+  datasets:
+    nl:
+      path: /var/lib/ov/input/gtfs-nl.zip
+      rt:
+        - url: https://gtfs.ovapi.nl/nl/trainUpdates.pb
+        - url: https://gtfs.ovapi.nl/nl/tripUpdates.pb
+street_routing: true
+osr_footpath: true
+geocoding: true
+reverse_geocoding: true
+limits:
+  plan_max_results: 12
+  geocode_max_suggestions: 20
+  routing_max_timeout_seconds: 20
+logging:
+  log_level: info
