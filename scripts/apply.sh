@@ -35,7 +35,7 @@ if changed $R/config/Caddyfile /etc/caddy/Caddyfile; then
 fi
 
 # keep Caddy running (self-heal)
-if [ -f /etc/caddy/Caddyfile ] && ! systemctl is-active -q caddy && ! systemctl is-active -q ov-diag; then systemctl restart caddy 2>/dev/null && log "caddy restarted"; fi
+if [ -f /etc/caddy/Caddyfile ] && [ ! -f /var/lib/ov/caddy-disabled ] && ! systemctl is-active -q caddy && ! ss -ltn | grep -qE ":(80|443)\s"; then systemctl restart caddy 2>/dev/null && log "caddy restarted"; fi
 
 # systemd units
 u=0
